@@ -1,0 +1,31 @@
+{
+  "name": "iro",
+  "version": "1.0.0",
+  "description": "Iro is a new Javascript color picker library, it boasts a sleek UI with a whole host of features, all in a small ~10KB package.",
+  "main": "src/iro.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateuszmazurek/iro.js.git"
+  },
+  "keywords": [
+    "color",
+    "picker",
+    "colorpicker",
+    "color",
+    "picker",
+    "color",
+    "wheel"
+  ],
+  "author": "jaames",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mateuszmazurek/iro.js/issues"
+  },
+  "homepage": "https://github.com/mateuszmazurek/iro.js#readme"
+}
