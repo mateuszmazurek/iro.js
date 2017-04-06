@@ -189,10 +189,10 @@
       }
     }
     // modified from https://gist.github.com/mjackson/5311256#file-color-conversion-algorithms-js-L119
-    IroColorPrototype.getRgb = function () {
+    IroColorPrototype.getRgb = function (v) {
       var hsv = this.hsv;
       var r, g, b, i, f, p, q, t;
-      var h = hsv.h/360, s = hsv.s/100, v = hsv.v/100;
+      var h = hsv.h/360, s = hsv.s/100, v = (v || hsv.v)/100;
       i = Math.floor(h * 6);
       f = h * 6 - i;
       p = v * (1 - s);
@@ -212,8 +212,8 @@
       var rgb = this.rgb;
       return [rgb.a ? "rgba" : "rgb", "(", rgb.r, ", ", rgb.g, ", ", rgb.b, rgb.a ? ", " + rgb.a : "", ")"].join("");
     };
-    IroColorPrototype.getHexString = function (useShort) {
-      var rgb = this.rgb;
+    IroColorPrototype.getHexString = function (useShort, v) {
+      var rgb = this.getRgb(v);
       var int, len;
       // check if value can be compressed to shorthand format (if useShort === true)
       // in shorthand, all channels should be able to be divided by 17 cleanly
@@ -566,7 +566,7 @@
       var ctx = this.mainCtx;
       var grad = ctx.createLinearGradient(layout.Sx1, layout.Sy1, layout.Sx2, layout.Sy1);
       grad.addColorStop(0, "#000");
-      grad.addColorStop(1, "#fff");
+      grad.addColorStop(1, this.color ? this.color.getHexString(false, 100) : '#fff');
       ctx.fillStyle = grad;
       ctx.clearRect(layout.Sx1, layout.Sy1, layout.Sw, layout.Sh);
       ctx.beginPath();
@@ -608,6 +608,7 @@
         this._updateMarker("slider", layout.Srs + x, layout.Sy1 + (layout.Sh / 2));
       }
       if (changed.h || changed.s) {
+        this._drawSlider();
         var hue = changed.h ? newValue.h : oldValue.h;
         var saturation = changed.s ? newValue.s : oldValue.s;
         var hueRadians = hue * (Math.PI/180);
